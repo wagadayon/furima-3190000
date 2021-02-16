@@ -1,0 +1,8 @@
+
+Exclude:
+   - "vendor/**/*" # rubocop config/default.yml
+   - "db/**/*"
+   - "config/**/*"
+   - "bin/*"
+   - "node_modules/**/*"
+   - "Gemfile"
