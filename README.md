@@ -23,7 +23,7 @@ Things you may want to cover:
 
 * ...
 
-# usersテーブル
+## usersテーブル
 |Column|Type|Options|
 |------|----|-------|
 |nickname|string|null: false|
@@ -34,15 +34,16 @@ Things you may want to cover:
 |first_name_kana|string|null: false|
 |birthday|integer||
 |profile|text||
-## Association
+### Association
 - has_one :address, dependent: :destroy
 - has_one :credit
-<!-- アソシエーションが1対1の関係の時は、どちらかをhas_one、もう一方をbelongs_toにする。 -->
 - has_many :creditcards, dependent: :destroy
 - has_many :items, dependent: :destroy
 - has_many :comments, dependent: :destroy
+- has_many :likes, dependent: :destroy
+- has_many :soldoutitems, dependent: :destroy
 
-# addressesテーブル
+## addressesテーブル
 |Column|Type|Options|
 |------|----|-------|
 |postcode|string|null: false|
@@ -56,25 +57,23 @@ Things you may want to cover:
 |sendname_last_kana|string|null: false|
 |sendname_first_kana|string|null: false|
 |user_id|integer|null: false, foreign_key: true|    /  references
-# Association
+### Association
 - belongs_to :user
 
 
-
-
-
-
-# creditテーブル
+※セキュリティの観点から、クレジットカードの番号やCVCをDBに保存してはいけない。
+ そのため、payjpにて生成される、customer_id(永続利用)を保存する
+## creditテーブル
 |Column|Type|Options|
 |------|----|-------|
 |user_id|integer|null: false, foreign_key: true|    /  references
-|customer_id|string|null: false| 
+|customer_id|string|null: false|  
 |card_id|string||
-# Association
+### Association
 - belongs_to :user
 
 
-# itemsテーブル
+## itemsテーブル
 |Column|Type|Options|
 |------|----|-------|
 |name|string|null: false|
@@ -90,7 +89,40 @@ Things you may want to cover:
 |status|integer|null: false|
 ### Association
 - belongs_to :user
+- belongs_to :category
+- has_one :soldoutitem, dependent: :destroy
+- has_many :itemimages, dependent: :destroy
 - has_many :comments, dependent: :destroy
+- has_many :likes, dependent: :destroy
+
+
+## itemimagesテーブル
+|Column|Type|Options|
+|------|----|-------|
+|image|string|null: false|
+|item_id|string|null: false, foreign_key: true|     /  references
+### Association
+- belongs_to :item
+
+
+## soldoutitemsテーブル
+|Column|Type|Options|
+|------|----|-------|
+|item_id|integer|null: false, foreign_key: true|
+|user_id|integer|null: false, foreign_key: true|
+### Association
+- belongs_to :item
+- belongs_to :user
+
+
+## categoriesテーブル
+|Column|Type|Options|
+|------|----|-------|
+|name|string|null: false, index: true|
+|ancestory|gem|※親子関係|
+### Association
+- has_many :items
+<
 
 
 ## commentsテーブル
@@ -99,6 +131,16 @@ Things you may want to cover:
 |item_id|integer|null: false, foreign_key: true|    /  references
 |user_id|integer|null: false, foreign_key: true|    /  references
 |comment|text|null: false|
+### Association
+- belongs_to :item
+- belongs_to :user
+
+
+## likesテーブル
+|Column|Type|Options|
+|------|----|-------|
+|item_id|integer|null: false, foreign_key: true|    /  references
+|user_id|integer|null: false, foreign_key: true|    /  references
 ### Association
 - belongs_to :item
 - belongs_to :user
