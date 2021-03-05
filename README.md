@@ -23,7 +23,7 @@ Things you may want to cover:
 
 * ...
 
-## usersテーブル
+<!-- ## usersテーブル
 |Column|Type|Options|
 |------|----|-------|
 |nickname|string|null: false|
@@ -143,4 +143,4 @@ Things you may want to cover:
 |user_id|integer|null: false, foreign_key: true|    /  references
 ### Association
 - belongs_to :item
-- belongs_to :user
+- belongs_to :user -->
