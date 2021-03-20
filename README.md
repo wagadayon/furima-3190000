@@ -1,146 +1,74 @@
-# README
+## users table
+| Column | Type | Options |
+| ------ | ---- | ------- |
+|  nickname       | string     |  null: false      |
+|  email  |   string   |  null: false       |
+|  last_name  |  string    |  null: false       |
+|  first_name     |    string  | null: false        |
+|  last_name_kana  |   string   |  null: false       |
+|  first_name_kana     | string     |  null: false       |
+| birthday       |  data    |    null: false     |
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-<!-- ## usersテーブル
-|Column|Type|Options|
-|------|----|-------|
-|nickname|string|null: false|
-|email|string|null: false, unique: true|
-|last_name|string|null: false|
-|first_name|string|null: false|
-|last_name_kana|string|null: false|
-|first_name_kana|string|null: false|
-|birthday|integer||
-|profile|text||
-### Association
-- has_one :address, dependent: :destroy
+- has_one :address
 - has_one :credit
-- has_many :creditcards, dependent: :destroy
-- has_many :items, dependent: :destroy
-- has_many :comments, dependent: :destroy
-- has_many :likes, dependent: :destroy
-- has_many :soldoutitems, dependent: :destroy
-
-## addressesテーブル
-|Column|Type|Options|
-|------|----|-------|
-|postcode|string|null: false|
-|prefecture|string|null: false|
-|municipality|string|null: false|
-|address|string|null: false|
-|room_number|string||
-|phone|integer||
-|sendname_last|string|null: false|
-|sendname_first|string|null: false|
-|sendname_last_kana|string|null: false|
-|sendname_first_kana|string|null: false|
-|user_id|integer|null: false, foreign_key: true|    /  references
-### Association
-- belongs_to :user
-
-
-※セキュリティの観点から、クレジットカードの番号やCVCをDBに保存してはいけない。
- そのため、payjpにて生成される、customer_id(永続利用)を保存する
-## creditテーブル
-|Column|Type|Options|
-|------|----|-------|
-|user_id|integer|null: false, foreign_key: true|    /  references
-|customer_id|string|null: false|  
-|card_id|string||
-### Association
-- belongs_to :user
-
-
-## itemsテーブル
-|Column|Type|Options|
-|------|----|-------|
-|name|string|null: false|
-|explanation|text|null: false|
-|brand|string||
-|condition|string|null: false|
-|postage|integer|null: false|
-|area|string|null: false|
-|days|integer|null: false|
-|price|integer|null: false|
-|user_id|integer|null: false, foreign_key: true|    /  references
-|category_id|integer|null: false, foreign_key: true|    /  references
-|status|integer|null: false|
-### Association
-- belongs_to :user
-- belongs_to :category
-- has_one :soldoutitem, dependent: :destroy
-- has_many :itemimages, dependent: :destroy
-- has_many :comments, dependent: :destroy
-- has_many :likes, dependent: :destroy
-
-
-## itemimagesテーブル
-|Column|Type|Options|
-|------|----|-------|
-|image|string|null: false|
-|item_id|string|null: false, foreign_key: true|     /  references
-### Association
-- belongs_to :item
-
-
-## soldoutitemsテーブル
-|Column|Type|Options|
-|------|----|-------|
-|item_id|integer|null: false, foreign_key: true|
-|user_id|integer|null: false, foreign_key: true|
-### Association
-- belongs_to :item
-- belongs_to :user
-
-
-## categoriesテーブル
-|Column|Type|Options|
-|------|----|-------|
-|name|string|null: false, index: true|
-|ancestory|gem|※親子関係|
-### Association
+- has_many :creditcards
 - has_many :items
-<
+- has_many :comments
 
 
-## commentsテーブル
-|Column|Type|Options|
-|------|----|-------|
-|item_id|integer|null: false, foreign_key: true|    /  references
-|user_id|integer|null: false, foreign_key: true|    /  references
-|comment|text|null: false|
-### Association
-- belongs_to :item
-- belongs_to :user
+
+## address table
+| Column | Type | Options |
+| ------ | ---- | ------- |
+| postcode    |  string    |  null: false       |
+| prefecture | string | null: false |
+| municipality | string | null: false |
+| address | swtring | null: false |
+| romm_number | string | null: false |
+| phone | string | null: false|
+
+- belongs_to: user
 
 
-## likesテーブル
-|Column|Type|Options|
-|------|----|-------|
-|item_id|integer|null: false, foreign_key: true|    /  references
-|user_id|integer|null: false, foreign_key: true|    /  references
-### Association
-- belongs_to :item
-- belongs_to :user -->
+## item table
+| Column | Type | Options |
+| ------ | ---- | ------- |
+| name | string | null: false |
+| explanation | string | null: false |
+| brand | string | null: false |
+| condition | string | null: false |
+| postage | date| null: false |
+| area | string | null: false |
+| price | integer | null: false |
+| days | data | null:false |
+| user_id | integer | null: false, foregin_key : true |
+
+- has_many: comments
+- belongs_to: user
+
+
+
+## credit table
+| Column | Type | Options |
+| ------ | ---- | ------- |
+| user_id | integer | null: false, foregin_key : true |
+| customer_id | integer | null: false, foregin_key : true |
+| card_id | integet | null: false, foregin_key : true |
+
+- belongs_to: user 
+
+
+
+## commets table
+| Column | Type | Options |
+| ------ | ---- | ------- |
+| item_id | integer | null: false, foregin_key : true |
+| user_id | integer | null: false, foregin_key : true |
+| comment | text | null: false |
+
+- belongs_to: item
+- belongs_to: user
+
+
+
+
