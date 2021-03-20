@@ -13,7 +13,7 @@
 - has_one :credit
 - has_many :creditcards
 - has_many :items
-- has_many :comments
+- has_many: comments
 
 
 
