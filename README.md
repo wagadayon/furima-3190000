@@ -66,8 +66,9 @@
 | user_id | integer | null: false, foregin_key : true |
 | comment | text | null: false |
 
+- belongs_to: item
 - belongs_to: user
-- belongs_to: user
+
 
 
 
