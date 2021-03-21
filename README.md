@@ -13,9 +13,7 @@
 - has_one :credit
 - has_many :creditcards
 - has_many :items
-- has_many: comments
-
-
+- has_many :comments
 
 
 
@@ -38,11 +36,11 @@
 | name | string | null: false |
 | explanation | string | null: false |
 | brand | string | null: false |
-| condition_id | string | null: false |
-| postage_id | date| null: false |
-| area_id | string | null: false |
+| condition | string | null: false |
+| postage | date| null: false |
+| area | string | null: false |
 | price | integer | null: false |
-| day_id | data | null:false |
+| days | data | null:false |
 | user_id | integer | null: false, foregin_key : true |
 
 - has_many: comments
